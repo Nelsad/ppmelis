@@ -28,36 +28,44 @@ export default function Navbar() {
     };
   }, []);
 
+  useEffect(() => {
+    document.body.style.overflow = isOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isOpen]);
+
   const onHero = overHero && !isOpen;
 
   return (
     <header
-      className={`nav-slide-down fixed top-0 z-50 w-full transition-all duration-300 ${
+      className={`nav-slide-down fixed top-0 z-50 w-full overflow-hidden transition-all duration-300 ${
         onHero
           ? "bg-transparent"
           : "bg-white/95 shadow-md backdrop-blur-sm"
       }`}
+      style={{ paddingTop: "env(safe-area-inset-top)" }}
     >
-      <nav className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 md:px-6">
-        <Link href="#pocetna" className="flex items-center gap-2">
+      <nav className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-2.5 sm:px-6 sm:py-3">
+        <Link href="#pocetna" className="min-w-0 shrink">
           <Image
             src="/Stari_Logo_PPMelis1.png"
             alt='P.P. "Melis" logo'
             width={140}
             height={70}
             priority
-            className={`h-12 w-auto transition-all duration-300 md:h-14 ${
+            className={`h-9 w-auto max-w-[120px] transition-all duration-300 sm:h-12 sm:max-w-none md:h-14 ${
               onHero ? "brightness-0 invert" : ""
             }`}
           />
         </Link>
 
-        <ul className="hidden items-center gap-8 md:flex">
+        <ul className="hidden items-center gap-6 lg:flex xl:gap-8">
           {navLinks.map((link) => (
             <li key={link.href}>
               <Link
                 href={link.href}
-                className={`nav-link text-sm font-medium transition-colors ${
+                className={`nav-link whitespace-nowrap text-sm font-medium transition-colors ${
                   onHero
                     ? "text-white hover:text-melis-cyan"
                     : "text-melis-dark hover:text-melis-cyan"
@@ -71,7 +79,7 @@ export default function Navbar() {
 
         <button
           type="button"
-          className="flex flex-col gap-1.5 md:hidden"
+          className="flex shrink-0 flex-col gap-1.5 p-2 lg:hidden"
           aria-label={isOpen ? "Zatvori meni" : "Otvori meni"}
           aria-expanded={isOpen}
           onClick={() => setIsOpen(!isOpen)}
@@ -95,13 +103,13 @@ export default function Navbar() {
       </nav>
 
       {isOpen && (
-        <div className="animate-[fade-in_0.3s_ease-out_both] border-t border-gray-100 bg-white px-4 py-4 md:hidden">
-          <ul className="flex flex-col gap-4">
+        <div className="max-h-[calc(100dvh-4rem)] overflow-y-auto border-t border-gray-100 bg-white px-4 py-3 lg:hidden">
+          <ul className="flex flex-col">
             {navLinks.map((link) => (
               <li key={link.href}>
                 <Link
                   href={link.href}
-                  className="block text-base font-medium text-melis-dark"
+                  className="block border-b border-gray-50 py-3.5 text-base font-medium text-melis-dark active:text-melis-cyan"
                   onClick={() => setIsOpen(false)}
                 >
                   {link.label}

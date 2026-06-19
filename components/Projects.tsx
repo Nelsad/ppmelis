@@ -23,20 +23,20 @@ export default function Projects({
     <section
       id={id}
       aria-labelledby={`${id}-title`}
-      className={`py-20 md:py-28 ${isOngoing ? "bg-gray-50" : "bg-white"}`}
+      className={`overflow-hidden py-14 sm:py-20 md:py-28 ${isOngoing ? "bg-gray-50" : "bg-white"}`}
     >
       <div className="mx-auto max-w-6xl px-4 md:px-6">
-        <AnimateOnScroll className="mb-12 text-center">
+        <AnimateOnScroll className="mb-8 text-center sm:mb-12">
           <h2
             id={`${id}-title`}
-            className="font-serif text-3xl font-bold text-melis-navy md:text-4xl"
+            className="font-serif text-2xl font-bold text-melis-navy sm:text-3xl md:text-4xl"
           >
             {title}
           </h2>
-          <p className="mt-4 text-lg text-melis-gray">{subtitle}</p>
+          <p className="mt-3 text-base text-melis-gray sm:mt-4 sm:text-lg">{subtitle}</p>
         </AnimateOnScroll>
 
-        <div className="grid gap-8 md:grid-cols-3">
+        <div className="grid gap-5 sm:gap-8 md:grid-cols-3">
           {projects.map((project, index) => (
             <AnimateOnScroll
               key={project.id}

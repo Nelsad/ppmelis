@@ -30,9 +30,9 @@ export default function ProjectCard({ project, variant }: ProjectCardProps) {
         </span>
       </div>
 
-      <div className="p-6">
-        <p className="text-sm font-medium text-melis-cyan">{project.location}</p>
-        <h3 className="mt-1 font-serif text-xl font-bold text-melis-navy transition-colors duration-300 group-hover:text-melis-cyan">
+      <div className="p-4 sm:p-6">
+        <p className="text-xs font-medium text-melis-cyan sm:text-sm">{project.location}</p>
+        <h3 className="mt-1 font-serif text-lg font-bold text-melis-navy transition-colors duration-300 group-hover:text-melis-cyan sm:text-xl">
           {project.title}
         </h3>
         <p className="mt-3 text-sm leading-relaxed text-melis-gray">

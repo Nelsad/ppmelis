@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist } from "next/font/google";
 import { Playfair_Display } from "next/font/google";
 import "./globals.css";
@@ -19,6 +19,12 @@ export const metadata: Metadata = {
     "P.P. Melis — građevinska firma specijalizovana za projektovanje i izvođenje stambenih i poslovnih objekata.",
 };
 
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -31,7 +37,7 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body
-        className="min-h-full flex flex-col font-sans"
+        className="min-h-full overflow-x-hidden flex flex-col font-sans"
         suppressHydrationWarning
       >
         {children}

@@ -12,10 +12,10 @@ type AnimateOnScrollProps = {
 };
 
 const hiddenClasses: Record<AnimationVariant, string> = {
-  "fade-up": "translate-y-10 opacity-0",
+  "fade-up": "translate-y-8 opacity-0",
   "fade-in": "opacity-0",
-  "fade-left": "-translate-x-10 opacity-0",
-  "fade-right": "translate-x-10 opacity-0",
+  "fade-left": "-translate-x-8 opacity-0 md:-translate-x-10",
+  "fade-right": "translate-x-8 opacity-0 md:translate-x-10",
   scale: "scale-95 opacity-0",
 };
 
@@ -56,7 +56,7 @@ export default function AnimateOnScroll({
           observer.unobserve(entry.target);
         }
       },
-      { threshold: 0.15, rootMargin: "0px 0px -40px 0px" },
+      { threshold: 0.1, rootMargin: "0px 0px -24px 0px" },
     );
 
     observer.observe(element);
@@ -66,7 +66,7 @@ export default function AnimateOnScroll({
   return (
     <div
       ref={ref}
-      className={`transform transition-all duration-700 ease-out motion-reduce:transform-none motion-reduce:opacity-100 motion-reduce:transition-none ${
+      className={`transform transition-all duration-700 ease-out motion-reduce:transform-none motion-reduce:opacity-100 motion-reduce:transition-none max-md:translate-x-0 ${
         visible ? visibleClasses[variant] : hiddenClasses[variant]
       } ${className}`}
       style={{ transitionDelay: `${delay}ms` }}

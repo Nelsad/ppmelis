@@ -46,33 +46,33 @@ export default function Services() {
     <section
       id="usluge"
       aria-labelledby="services-title"
-      className="bg-gray-50 py-20 md:py-28"
+      className="bg-gray-50 py-14 sm:py-20 md:py-28"
     >
       <div className="mx-auto max-w-6xl px-4 md:px-6">
         <AnimateOnScroll className="mx-auto max-w-3xl text-center">
           <h2
             id="services-title"
-            className="font-serif text-3xl font-bold text-melis-navy md:text-4xl"
+            className="font-serif text-2xl font-bold text-melis-navy sm:text-3xl md:text-4xl"
           >
             {servicesContent.title}
           </h2>
-          <p className="mt-4 text-lg text-melis-gray">
+          <p className="mt-3 text-base text-melis-gray sm:mt-4 sm:text-lg">
             {servicesContent.subtitle}
           </p>
         </AnimateOnScroll>
 
-        <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-10 grid gap-4 sm:mt-14 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {servicesContent.services.map((service, index) => (
             <AnimateOnScroll
               key={service.id}
               variant="fade-up"
               delay={index * 100}
-              className="group rounded-xl border border-gray-100 bg-white p-8 transition-all duration-300 hover:-translate-y-2 hover:border-melis-cyan/40 hover:shadow-lg"
+              className="group rounded-xl border border-gray-100 bg-white p-5 transition-all duration-300 hover:-translate-y-2 hover:border-melis-cyan/40 hover:shadow-lg sm:p-8"
             >
               <div className="mb-5 inline-flex rounded-lg bg-melis-cyan/10 p-3 text-melis-navy transition-colors duration-300 group-hover:bg-melis-cyan group-hover:text-white">
                 {icons[service.id]}
               </div>
-              <h3 className="font-serif text-xl font-bold text-melis-navy transition-colors duration-300 group-hover:text-melis-cyan">
+              <h3 className="font-serif text-lg font-bold text-melis-navy transition-colors duration-300 group-hover:text-melis-cyan sm:text-xl">
                 {service.title}
               </h3>
               <p className="mt-3 text-sm leading-relaxed text-melis-gray">
