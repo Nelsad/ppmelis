@@ -1,0 +1,138 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #0a0a0a;
+  --melis-cyan: #4fc3f7;
+  --melis-navy: #1a3a6b;
+  --melis-dark: #0a0a0a;
+  --melis-gray: #9e9e9e;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-melis-cyan: var(--melis-cyan);
+  --color-melis-navy: var(--melis-navy);
+  --color-melis-dark: var(--melis-dark);
+  --color-melis-gray: var(--melis-gray);
+  --font-sans: var(--font-geist-sans);
+  --font-serif: var(--font-playfair);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+}
+
+@keyframes ken-burns {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.1);
+  }
+}
+
+@keyframes hero-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(2rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slide-down {
+  from {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes success-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(0.5rem);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.hero-ken-burns {
+  animation: ken-burns 25s ease-out forwards;
+}
+
+.hero-animate-title {
+  animation: hero-fade-up 0.9s ease-out 0.2s both;
+}
+
+.hero-animate-subtitle {
+  animation: hero-fade-up 0.9s ease-out 0.5s both;
+}
+
+.hero-animate-cta {
+  animation: hero-fade-up 0.9s ease-out 0.8s both;
+}
+
+.nav-slide-down {
+  animation: slide-down 0.6s ease-out both;
+}
+
+.animate-success {
+  animation: success-pop 0.4s ease-out both;
+}
+
+.nav-link {
+  position: relative;
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--melis-cyan);
+  transition: width 0.3s ease;
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-ken-burns,
+  .hero-animate-title,
+  .hero-animate-subtitle,
+  .hero-animate-cta,
+  .nav-slide-down,
+  .animate-success {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}

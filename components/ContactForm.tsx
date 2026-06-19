@@ -1,0 +1,207 @@
+"use client";
+
+import { FormEvent, useState } from "react";
+import AnimateOnScroll from "@/components/AnimateOnScroll";
+import { contactInfo } from "@/lib/content";
+
+type FormData = {
+  name: string;
+  email: string;
+  phone: string;
+  message: string;
+};
+
+type FormErrors = Partial<Record<keyof FormData, string>>;
+
+const initialForm: FormData = {
+  name: "",
+  email: "",
+  phone: "",
+  message: "",
+};
+
+export default function ContactForm() {
+  const [form, setForm] = useState<FormData>(initialForm);
+  const [errors, setErrors] = useState<FormErrors>({});
+  const [submitted, setSubmitted] = useState(false);
+
+  const validate = (): FormErrors => {
+    const next: FormErrors = {};
+
+    if (!form.name.trim()) {
+      next.name = "Ime i prezime je obavezno.";
+    }
+
+    if (!form.email.trim()) {
+      next.email = "Email je obavezan.";
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
+      next.email = "Unesite ispravnu email adresu.";
+    }
+
+    if (!form.phone.trim()) {
+      next.phone = "Telefon je obavezan.";
+    }
+
+    if (!form.message.trim()) {
+      next.message = "Poruka je obavezna.";
+    }
+
+    return next;
+  };
+
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const nextErrors = validate();
+    setErrors(nextErrors);
+
+    if (Object.keys(nextErrors).length > 0) {
+      return;
+    }
+
+    // UI-only submit. Wire up Formspree/Resend here when ready.
+    setSubmitted(true);
+    setForm(initialForm);
+  };
+
+  const handleChange = (field: keyof FormData, value: string) => {
+    setForm((prev) => ({ ...prev, [field]: value }));
+    if (errors[field]) {
+      setErrors((prev) => ({ ...prev, [field]: undefined }));
+    }
+    if (submitted) {
+      setSubmitted(false);
+    }
+  };
+
+  return (
+    <section
+      id="kontakt"
+      aria-labelledby="contact-title"
+      className="bg-white py-20 md:py-28"
+    >
+      <div className="mx-auto max-w-6xl px-4 md:px-6">
+        <AnimateOnScroll className="mb-12 text-center">
+          <h2
+            id="contact-title"
+            className="font-serif text-3xl font-bold text-melis-navy md:text-4xl"
+          >
+            Kontaktirajte nas
+          </h2>
+          <p className="mt-4 text-lg text-melis-gray">
+            Pošaljite nam poruku i javićemo vam se u najkraćem roku.
+          </p>
+        </AnimateOnScroll>
+
+        <div className="grid gap-12 lg:grid-cols-2">
+          <AnimateOnScroll variant="fade-right" className="space-y-6">
+            <div>
+              <h3 className="text-sm font-semibold uppercase tracking-wide text-melis-cyan">
+                Adresa
+              </h3>
+              <p className="mt-1 text-melis-navy">{contactInfo.address}</p>
+            </div>
+            <div>
+              <h3 className="text-sm font-semibold uppercase tracking-wide text-melis-cyan">
+                Telefon
+              </h3>
+              <p className="mt-1 text-melis-navy">{contactInfo.phone}</p>
+            </div>
+            <div>
+              <h3 className="text-sm font-semibold uppercase tracking-wide text-melis-cyan">
+                Email
+              </h3>
+              <p className="mt-1 text-melis-navy">{contactInfo.email}</p>
+            </div>
+            <div>
+              <h3 className="text-sm font-semibold uppercase tracking-wide text-melis-cyan">
+                Radno vreme
+              </h3>
+              <p className="mt-1 text-melis-navy">{contactInfo.hours}</p>
+            </div>
+          </AnimateOnScroll>
+
+          <AnimateOnScroll variant="fade-left" delay={150}>
+          <form onSubmit={handleSubmit} className="space-y-5" noValidate>
+            <div>
+              <label htmlFor="name" className="mb-1 block text-sm font-medium text-melis-navy">
+                Ime i prezime
+              </label>
+              <input
+                id="name"
+                type="text"
+                value={form.name}
+                onChange={(e) => handleChange("name", e.target.value)}
+                className="w-full rounded-md border border-gray-200 px-4 py-2.5 text-melis-dark outline-none focus:border-melis-cyan focus:ring-2 focus:ring-melis-cyan/20"
+              />
+              {errors.name && (
+                <p className="mt-1 text-sm text-red-600">{errors.name}</p>
+              )}
+            </div>
+
+            <div>
+              <label htmlFor="email" className="mb-1 block text-sm font-medium text-melis-navy">
+                Email
+              </label>
+              <input
+                id="email"
+                type="email"
+                value={form.email}
+                onChange={(e) => handleChange("email", e.target.value)}
+                className="w-full rounded-md border border-gray-200 px-4 py-2.5 text-melis-dark outline-none focus:border-melis-cyan focus:ring-2 focus:ring-melis-cyan/20"
+              />
+              {errors.email && (
+                <p className="mt-1 text-sm text-red-600">{errors.email}</p>
+              )}
+            </div>
+
+            <div>
+              <label htmlFor="phone" className="mb-1 block text-sm font-medium text-melis-navy">
+                Telefon
+              </label>
+              <input
+                id="phone"
+                type="tel"
+                value={form.phone}
+                onChange={(e) => handleChange("phone", e.target.value)}
+                className="w-full rounded-md border border-gray-200 px-4 py-2.5 text-melis-dark outline-none focus:border-melis-cyan focus:ring-2 focus:ring-melis-cyan/20"
+              />
+              {errors.phone && (
+                <p className="mt-1 text-sm text-red-600">{errors.phone}</p>
+              )}
+            </div>
+
+            <div>
+              <label htmlFor="message" className="mb-1 block text-sm font-medium text-melis-navy">
+                Poruka
+              </label>
+              <textarea
+                id="message"
+                rows={5}
+                value={form.message}
+                onChange={(e) => handleChange("message", e.target.value)}
+                className="w-full resize-none rounded-md border border-gray-200 px-4 py-2.5 text-melis-dark outline-none focus:border-melis-cyan focus:ring-2 focus:ring-melis-cyan/20"
+              />
+              {errors.message && (
+                <p className="mt-1 text-sm text-red-600">{errors.message}</p>
+              )}
+            </div>
+
+            {submitted && (
+              <p className="animate-success rounded-md bg-green-50 px-4 py-3 text-sm text-green-800">
+                Hvala! Vaša poruka je primljena. Kontaktiraćemo vas uskoro.
+              </p>
+            )}
+
+            <button
+              type="submit"
+              className="w-full rounded-md bg-melis-navy px-6 py-3 font-semibold text-white transition-all duration-300 hover:scale-105 hover:bg-melis-cyan hover:text-melis-navy hover:shadow-md md:w-auto"
+            >
+              Pošalji poruku
+            </button>
+          </form>
+          </AnimateOnScroll>
+        </div>
+      </div>
+    </section>
+  );
+}
