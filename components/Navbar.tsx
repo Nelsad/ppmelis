@@ -47,7 +47,7 @@ export default function Navbar() {
       style={{ paddingTop: "env(safe-area-inset-top)" }}
     >
       <nav className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-2.5 sm:px-6 sm:py-3">
-        <Link href="#pocetna" className="min-w-0 shrink">
+        <Link href="#pocetna" className="logo-hover min-w-0 shrink">
           <Image
             src="/Stari_Logo_PPMelis1.png"
             alt='P.P. "Melis" logo'
@@ -103,7 +103,7 @@ export default function Navbar() {
       </nav>
 
       {isOpen && (
-        <div className="max-h-[calc(100dvh-4rem)] overflow-y-auto border-t border-gray-100 bg-white px-4 py-3 lg:hidden">
+        <div className="mobile-menu max-h-[calc(100dvh-4rem)] overflow-y-auto border-t border-gray-100 bg-white px-4 py-3 lg:hidden">
           <ul className="flex flex-col">
             {navLinks.map((link) => (
               <li key={link.href}>

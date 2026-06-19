@@ -81,67 +81,61 @@ export const aboutContent = {
   stats: [
     { value: "30+", label: "Godina iskustva" },
     { value: "200+", label: "Završenih projekata" },
-    { value: "98%", label: "Zadovoljnih klijenata" },
+    { value: "100%", label: "Zadovoljnih klijenata" },
   ],
 };
 
 export const completedProjects: Project[] = [
   {
     id: 1,
-    title: "Stambeni kompleks Sunce",
-    location: "Beograd, Novi Beograd",
+    title: "Rehabilitacioni centar",
+    location: "Prizren",
     description:
-      "Moderni stambeni kompleks sa 48 stanova, podzemnom garažom i uređenim dvorištem.",
-    image:
-      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&q=80",
+      "Rehabilitacioni centar u prirodnom okruženju, sa višenivojskom arhitekturom i uređenim spoljnim prostorom.",
+    image: "/projects/qendra-rehabilitimit.png",
   },
   {
     id: 2,
-    title: "Poslovni centar Delta",
-    location: "Novi Sad",
+    title: "Lux Dekor",
+    location: "Prizren",
     description:
-      "Poslovni objekat sa fleksibilnim kancelarijskim prostorima i energetski efikasnim fasadnim sistemom.",
-    image:
-      "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800&q=80",
+      "Poslovno-skladisni kompleks sa modernim kancelarijskim delom i funkcionalnim utovarnim rampama.",
+    image: "/projects/lux-dekor.png",
   },
   {
     id: 3,
-    title: "Porodična vila Aurora",
-    location: "Zlatibor",
+    title: "Stambena zgrada",
+    location: "Prizren",
     description:
-      "Luksuzna vila sa panoramskim pogledom, bazenom i prirodnim materijalima u enterijeru.",
-    image:
-      "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80",
+      "Savremena stambena zgrada sa četiri nivoa, balkonima i pažljivo osmišljenim eksterijerom i osvetljenjem.",
+    image: "/projects/stambena-zgrada.png",
   },
 ];
 
 export const ongoingProjects: Project[] = [
   {
     id: 1,
-    title: "Vila na Dedinju",
-    location: "Beograd",
+    title: "Tranzit Residence",
+    location: "Prizren",
     description:
-      "Ekskluzivna porodična vila sa podrumom, garažom i smart home sistemom.",
-    image:
-      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80",
+      "Stambeni kompleks sa zelenim krovovima, terasama i uređenim dvorištem za porodično stanovanje.",
+    image: "/projects/tranzit-residence.png",
   },
   {
     id: 2,
-    title: "Stambena zgrada Park",
-    location: "Niš",
+    title: "Adria Park",
+    location: "Prizren",
     description:
-      "Stambena zgrada sa 24 stana, liftom i zelenim krovom za održivu gradnju.",
-    image:
-      "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=800&q=80",
+      "Savremeni stambeni kompleks sa zelenim krovovima, unutrašnjim dvorištem i višestambenim jedinicama.",
+    image: "/projects/adria-park.png",
   },
   {
     id: 3,
-    title: "Renoviranje hotela",
-    location: "Kopaonik",
+    title: "Objekat sa stambenim i poslovnim jedinicama",
+    location: "Prizren",
     description:
-      "Kompletna rekonstrukcija hotelskog kompleksa uz proširenje kapaciteta i modernizaciju enterijera.",
-    image:
-      "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80",
+      "Stambeno-poslovni objekat sa modernom fasadom, balkonima i poslovnim prostorima u prizemlju.",
+    image: "/projects/prizren-banim-afarizem.png",
   },
 ];
 

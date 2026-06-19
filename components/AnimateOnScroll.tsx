@@ -66,8 +66,8 @@ export default function AnimateOnScroll({
   return (
     <div
       ref={ref}
-      className={`transform transition-all duration-700 ease-out motion-reduce:transform-none motion-reduce:opacity-100 motion-reduce:transition-none max-md:translate-x-0 ${
-        visible ? visibleClasses[variant] : hiddenClasses[variant]
+      className={`transform transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transform-none motion-reduce:opacity-100 motion-reduce:transition-none max-md:translate-x-0 ${
+        visible ? `is-visible ${visibleClasses[variant]}` : hiddenClasses[variant]
       } ${className}`}
       style={{ transitionDelay: `${delay}ms` }}
     >

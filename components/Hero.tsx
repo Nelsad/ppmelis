@@ -37,7 +37,7 @@ export default function Hero() {
           </p>
           <Link
             href="#kontakt"
-            className="hero-animate-cta mt-8 inline-block w-full max-w-xs rounded-md bg-melis-cyan px-6 py-3.5 text-base font-semibold text-melis-navy transition-colors duration-300 hover:bg-white hover:shadow-lg active:scale-[0.98] sm:mt-10 sm:w-auto sm:px-8"
+            className="hero-animate-cta mt-8 inline-block w-full max-w-xs rounded-md bg-melis-cyan px-6 py-3.5 text-base font-semibold text-melis-navy transition-colors duration-300 hover:bg-white active:scale-[0.98] sm:mt-10 sm:w-auto sm:px-8"
           >
             {heroContent.cta}
           </Link>

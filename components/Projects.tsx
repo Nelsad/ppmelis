@@ -1,5 +1,6 @@
 import AnimateOnScroll from "@/components/AnimateOnScroll";
 import ProjectCard from "@/components/ProjectCard";
+import SectionHeading from "@/components/SectionHeading";
 import type { Project } from "@/lib/content";
 
 type ProjectsProps = {
@@ -26,15 +27,12 @@ export default function Projects({
       className={`overflow-hidden py-14 sm:py-20 md:py-28 ${isOngoing ? "bg-gray-50" : "bg-white"}`}
     >
       <div className="mx-auto max-w-6xl px-4 md:px-6">
-        <AnimateOnScroll className="mb-8 text-center sm:mb-12">
-          <h2
-            id={`${id}-title`}
-            className="font-serif text-2xl font-bold text-melis-navy sm:text-3xl md:text-4xl"
-          >
-            {title}
-          </h2>
-          <p className="mt-3 text-base text-melis-gray sm:mt-4 sm:text-lg">{subtitle}</p>
-        </AnimateOnScroll>
+        <SectionHeading
+          id={`${id}-title`}
+          title={title}
+          subtitle={subtitle}
+          className="mb-8 sm:mb-12"
+        />
 
         <div className="grid gap-5 sm:gap-8 md:grid-cols-3">
           {projects.map((project, index) => (
@@ -43,7 +41,7 @@ export default function Projects({
               variant="fade-up"
               delay={index * 150}
             >
-              <ProjectCard project={project} variant={variant} />
+              <ProjectCard project={project} />
             </AnimateOnScroll>
           ))}
         </div>

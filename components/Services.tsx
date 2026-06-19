@@ -1,6 +1,7 @@
-import type { ReactNode } from "react";
 import AnimateOnScroll from "@/components/AnimateOnScroll";
+import SectionHeading from "@/components/SectionHeading";
 import { servicesContent, type Service } from "@/lib/content";
+import type { ReactNode } from "react";
 
 const icons: Record<Service["id"], ReactNode> = {
   "architectural-design": (
@@ -49,27 +50,21 @@ export default function Services() {
       className="bg-gray-50 py-14 sm:py-20 md:py-28"
     >
       <div className="mx-auto max-w-6xl px-4 md:px-6">
-        <AnimateOnScroll className="mx-auto max-w-3xl text-center">
-          <h2
-            id="services-title"
-            className="font-serif text-2xl font-bold text-melis-navy sm:text-3xl md:text-4xl"
-          >
-            {servicesContent.title}
-          </h2>
-          <p className="mt-3 text-base text-melis-gray sm:mt-4 sm:text-lg">
-            {servicesContent.subtitle}
-          </p>
-        </AnimateOnScroll>
+        <SectionHeading
+          id="services-title"
+          title={servicesContent.title}
+          subtitle={servicesContent.subtitle}
+        />
 
-        <div className="mt-10 grid gap-4 sm:mt-14 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-10 grid gap-4 sm:mt-14 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
           {servicesContent.services.map((service, index) => (
             <AnimateOnScroll
               key={service.id}
               variant="fade-up"
               delay={index * 100}
-              className="group rounded-xl border border-gray-100 bg-white p-5 transition-all duration-300 hover:-translate-y-2 hover:border-melis-cyan/40 hover:shadow-lg sm:p-8"
+              className="service-card group rounded-xl border border-gray-100 bg-white p-5 hover:border-melis-cyan/40 hover:shadow-lg sm:p-8"
             >
-              <div className="mb-5 inline-flex rounded-lg bg-melis-cyan/10 p-3 text-melis-navy transition-colors duration-300 group-hover:bg-melis-cyan group-hover:text-white">
+              <div className="service-icon mb-5 inline-flex rounded-lg bg-melis-cyan/10 p-3 text-melis-navy group-hover:bg-melis-cyan group-hover:text-white">
                 {icons[service.id]}
               </div>
               <h3 className="font-serif text-lg font-bold text-melis-navy transition-colors duration-300 group-hover:text-melis-cyan sm:text-xl">

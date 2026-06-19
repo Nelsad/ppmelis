@@ -2,6 +2,7 @@
 
 import { FormEvent, useState } from "react";
 import AnimateOnScroll from "@/components/AnimateOnScroll";
+import SectionHeading from "@/components/SectionHeading";
 import { contactInfo } from "@/lib/content";
 
 type FormData = {
@@ -80,27 +81,22 @@ export default function ContactForm() {
       className="bg-white py-14 sm:py-20 md:py-28"
     >
       <div className="mx-auto max-w-6xl px-4 md:px-6">
-        <AnimateOnScroll className="mb-8 text-center sm:mb-12">
-          <h2
-            id="contact-title"
-            className="font-serif text-2xl font-bold text-melis-navy sm:text-3xl md:text-4xl"
-          >
-            Kontaktirajte nas
-          </h2>
-          <p className="mt-3 text-base text-melis-gray sm:mt-4 sm:text-lg">
-            Pošaljite nam poruku i javićemo vam se u najkraćem roku.
-          </p>
-        </AnimateOnScroll>
+        <SectionHeading
+          id="contact-title"
+          title="Kontaktirajte nas"
+          subtitle="Pošaljite nam poruku i javićemo vam se u najkraćem roku."
+          className="mb-8 sm:mb-12"
+        />
 
         <div className="grid gap-8 lg:grid-cols-2 lg:gap-12">
           <AnimateOnScroll variant="fade-up" className="space-y-5 sm:space-y-6">
-            <div>
+            <div className="contact-item">
               <h3 className="text-sm font-semibold uppercase tracking-wide text-melis-cyan">
                 Adresa
               </h3>
               <p className="mt-1 break-words text-base text-melis-navy">{contactInfo.address}</p>
             </div>
-            <div>
+            <div className="contact-item">
               <h3 className="text-sm font-semibold uppercase tracking-wide text-melis-cyan">
                 Telefon
               </h3>
@@ -110,7 +106,7 @@ export default function ContactForm() {
                 </a>
               </p>
             </div>
-            <div>
+            <div className="contact-item">
               <h3 className="text-sm font-semibold uppercase tracking-wide text-melis-cyan">
                 Email
               </h3>
@@ -120,7 +116,7 @@ export default function ContactForm() {
                 </a>
               </p>
             </div>
-            <div>
+            <div className="contact-item">
               <h3 className="text-sm font-semibold uppercase tracking-wide text-melis-cyan">
                 Radno vreme
               </h3>
@@ -139,7 +135,7 @@ export default function ContactForm() {
                 type="text"
                 value={form.name}
                 onChange={(e) => handleChange("name", e.target.value)}
-                className="w-full rounded-md border border-gray-200 px-4 py-3 text-base text-melis-dark outline-none focus:border-melis-cyan focus:ring-2 focus:ring-melis-cyan/20"
+                className="input-field w-full rounded-md border border-gray-200 px-4 py-3 text-base text-melis-dark outline-none focus:border-melis-cyan focus:ring-2 focus:ring-melis-cyan/20"
               />
               {errors.name && (
                 <p className="mt-1 text-sm text-red-600">{errors.name}</p>
@@ -155,7 +151,7 @@ export default function ContactForm() {
                 type="email"
                 value={form.email}
                 onChange={(e) => handleChange("email", e.target.value)}
-                className="w-full rounded-md border border-gray-200 px-4 py-3 text-base text-melis-dark outline-none focus:border-melis-cyan focus:ring-2 focus:ring-melis-cyan/20"
+                className="input-field w-full rounded-md border border-gray-200 px-4 py-3 text-base text-melis-dark outline-none focus:border-melis-cyan focus:ring-2 focus:ring-melis-cyan/20"
               />
               {errors.email && (
                 <p className="mt-1 text-sm text-red-600">{errors.email}</p>
@@ -171,7 +167,7 @@ export default function ContactForm() {
                 type="tel"
                 value={form.phone}
                 onChange={(e) => handleChange("phone", e.target.value)}
-                className="w-full rounded-md border border-gray-200 px-4 py-3 text-base text-melis-dark outline-none focus:border-melis-cyan focus:ring-2 focus:ring-melis-cyan/20"
+                className="input-field w-full rounded-md border border-gray-200 px-4 py-3 text-base text-melis-dark outline-none focus:border-melis-cyan focus:ring-2 focus:ring-melis-cyan/20"
               />
               {errors.phone && (
                 <p className="mt-1 text-sm text-red-600">{errors.phone}</p>
@@ -187,7 +183,7 @@ export default function ContactForm() {
                 rows={5}
                 value={form.message}
                 onChange={(e) => handleChange("message", e.target.value)}
-                className="w-full resize-none rounded-md border border-gray-200 px-4 py-3 text-base text-melis-dark outline-none focus:border-melis-cyan focus:ring-2 focus:ring-melis-cyan/20"
+                className="input-field w-full resize-none rounded-md border border-gray-200 px-4 py-3 text-base text-melis-dark outline-none focus:border-melis-cyan focus:ring-2 focus:ring-melis-cyan/20"
               />
               {errors.message && (
                 <p className="mt-1 text-sm text-red-600">{errors.message}</p>
@@ -202,7 +198,7 @@ export default function ContactForm() {
 
             <button
               type="submit"
-              className="w-full rounded-md bg-melis-navy px-6 py-3.5 text-base font-semibold text-white transition-all duration-300 active:scale-[0.98] hover:bg-melis-cyan hover:text-melis-navy hover:shadow-md sm:w-auto sm:hover:scale-105"
+              className="w-full rounded-md bg-melis-navy px-6 py-3.5 text-base font-semibold text-white transition-all duration-300 active:scale-[0.98] hover:bg-melis-cyan hover:text-melis-navy hover:shadow-md sm:w-auto"
             >
               Pošalji poruku
             </button>
