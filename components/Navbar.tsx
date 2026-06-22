@@ -5,6 +5,22 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { navLinks } from "@/lib/content";
 
+function contactClasses(onHero: boolean) {
+  return `nav-cta inline-flex items-center justify-center rounded-md px-3 py-1.5 text-sm font-semibold transition-colors md:px-4 md:py-2 ${
+    onHero
+      ? "bg-melis-cyan text-melis-navy shadow-md shadow-melis-cyan/30 hover:bg-white"
+      : "bg-melis-cyan text-melis-navy shadow-sm shadow-melis-cyan/25 hover:bg-melis-navy hover:text-white"
+  }`;
+}
+
+function linkClasses(onHero: boolean) {
+  return `nav-link whitespace-nowrap text-sm font-medium transition-colors ${
+    onHero
+      ? "text-white hover:text-melis-cyan"
+      : "text-melis-dark hover:text-melis-cyan"
+  }`;
+}
+
 export default function Navbar() {
   const [overHero, setOverHero] = useState(true);
   const [isOpen, setIsOpen] = useState(false);
@@ -60,16 +76,16 @@ export default function Navbar() {
           />
         </Link>
 
-        <ul className="hidden items-center gap-6 lg:flex xl:gap-8">
+        <ul className="hidden items-center gap-4 md:flex md:gap-5 lg:gap-6 xl:gap-8">
           {navLinks.map((link) => (
             <li key={link.href}>
               <Link
                 href={link.href}
-                className={`nav-link whitespace-nowrap text-sm font-medium transition-colors ${
-                  onHero
-                    ? "text-white hover:text-melis-cyan"
-                    : "text-melis-dark hover:text-melis-cyan"
-                }`}
+                className={
+                  link.href === "#kontakt"
+                    ? contactClasses(onHero)
+                    : linkClasses(onHero)
+                }
               >
                 {link.label}
               </Link>
@@ -79,7 +95,7 @@ export default function Navbar() {
 
         <button
           type="button"
-          className="flex shrink-0 flex-col gap-1.5 p-2 lg:hidden"
+          className="flex shrink-0 flex-col gap-1.5 p-2 md:hidden"
           aria-label={isOpen ? "Zatvori meni" : "Otvori meni"}
           aria-expanded={isOpen}
           onClick={() => setIsOpen(!isOpen)}
@@ -103,13 +119,17 @@ export default function Navbar() {
       </nav>
 
       {isOpen && (
-        <div className="mobile-menu max-h-[calc(100dvh-4rem)] overflow-y-auto border-t border-gray-100 bg-white px-4 py-3 lg:hidden">
+        <div className="mobile-menu max-h-[calc(100dvh-4rem)] overflow-y-auto border-t border-gray-100 bg-white px-4 py-3 md:hidden">
           <ul className="flex flex-col">
             {navLinks.map((link) => (
               <li key={link.href}>
                 <Link
                   href={link.href}
-                  className="block border-b border-gray-50 py-3.5 text-base font-medium text-melis-dark active:text-melis-cyan"
+                  className={
+                    link.href === "#kontakt"
+                      ? `${contactClasses(false)} mt-2 w-full py-3.5 text-base`
+                      : "block border-b border-gray-50 py-3.5 text-base font-medium text-melis-dark active:text-melis-cyan"
+                  }
                   onClick={() => setIsOpen(false)}
                 >
                   {link.label}

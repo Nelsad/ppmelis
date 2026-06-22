@@ -17,7 +17,7 @@ export default function Home() {
         <About />
         <Projects
           id="projekti"
-          title="Naši najbolji projekti"
+          title="Naše vizije"
           subtitle="Projekti koje smo dizajnirali i uspešno realizovali"
           projects={completedProjects}
           variant="completed"

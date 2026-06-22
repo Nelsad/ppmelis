@@ -20,6 +20,7 @@ export const heroContent = {
   subtitle:
     "P.P. \"Melis\" je građevinska firma sa višegodišnjim iskustvom u projektovanju i izvođenju stambenih i poslovnih objekata širom Kosova.",
   cta: "Kontaktirajte nas",
+  ctaSecondary: "Naši projekti",
   image:
     "https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=1920&q=80",
 };
@@ -118,7 +119,7 @@ export const ongoingProjects: Project[] = [
     title: "Tranzit Residence",
     location: "Prizren",
     description:
-      "Stambeni kompleks sa zelenim krovovima, terasama i uređenim dvorištem za porodično stanovanje.",
+      "Savremeni stambeni kompleks sa stepenastom arhitekturom, terasama sa zelenilom i uređenim parkom za porodično stanovanje.",
     image: "/projects/tranzit-residence.png",
   },
   {
@@ -126,7 +127,7 @@ export const ongoingProjects: Project[] = [
     title: "Adria Park",
     location: "Prizren",
     description:
-      "Savremeni stambeni kompleks sa zelenim krovovima, unutrašnjim dvorištem i višestambenim jedinicama.",
+      "Savremeni stambeni kompleks sa unutrašnjim dvorištem, terasama sa zelenilom i višestambenim jedinicama.",
     image: "/projects/adria-park.png",
   },
   {

@@ -25,6 +25,8 @@ export default function ContactForm() {
   const [form, setForm] = useState<FormData>(initialForm);
   const [errors, setErrors] = useState<FormErrors>({});
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState("");
 
   const validate = (): FormErrors => {
     const next: FormErrors = {};
@@ -50,18 +52,50 @@ export default function ContactForm() {
     return next;
   };
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const nextErrors = validate();
     setErrors(nextErrors);
+    setSubmitError("");
 
     if (Object.keys(nextErrors).length > 0) {
       return;
     }
 
-    // UI-only submit. Wire up Formspree/Resend here when ready.
-    setSubmitted(true);
-    setForm(initialForm);
+    const formspreeId = process.env.NEXT_PUBLIC_FORMSPREE_ID;
+    if (!formspreeId) {
+      setSubmitError("Forma nije podešena. Kontaktirajte nas direktno putem emaila.");
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      const response = await fetch(`https://formspree.io/f/${formspreeId}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          name: form.name,
+          email: form.email,
+          phone: form.phone,
+          message: form.message,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Submit failed");
+      }
+
+      setSubmitted(true);
+      setForm(initialForm);
+    } catch {
+      setSubmitError("Greška pri slanju poruke. Pokušajte ponovo ili nas kontaktirajte direktno.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (field: keyof FormData, value: string) => {
@@ -71,6 +105,9 @@ export default function ContactForm() {
     }
     if (submitted) {
       setSubmitted(false);
+    }
+    if (submitError) {
+      setSubmitError("");
     }
   };
 
@@ -190,6 +227,12 @@ export default function ContactForm() {
               )}
             </div>
 
+            {submitError && (
+              <p className="rounded-md bg-red-50 px-4 py-3 text-sm text-red-700">
+                {submitError}
+              </p>
+            )}
+
             {submitted && (
               <p className="animate-success rounded-md bg-green-50 px-4 py-3 text-sm text-green-800">
                 Hvala! Vaša poruka je primljena. Kontaktiraćemo vas uskoro.
@@ -198,9 +241,10 @@ export default function ContactForm() {
 
             <button
               type="submit"
-              className="w-full rounded-md bg-melis-navy px-6 py-3.5 text-base font-semibold text-white transition-all duration-300 active:scale-[0.98] hover:bg-melis-cyan hover:text-melis-navy hover:shadow-md sm:w-auto"
+              disabled={isSubmitting}
+              className="w-full rounded-md bg-melis-navy px-6 py-3.5 text-base font-semibold text-white transition-all duration-300 hover:bg-melis-cyan hover:text-melis-navy hover:shadow-md active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
             >
-              Pošalji poruku
+              {isSubmitting ? "Slanje..." : "Pošalji poruku"}
             </button>
           </form>
           </AnimateOnScroll>

@@ -35,12 +35,20 @@ export default function Hero() {
           <p className="hero-animate-subtitle mx-auto mt-4 max-w-2xl text-pretty text-sm leading-relaxed text-white/90 sm:mt-6 sm:text-lg md:text-xl">
             {heroContent.subtitle}
           </p>
-          <Link
-            href="#kontakt"
-            className="hero-animate-cta mt-8 inline-block w-full max-w-xs rounded-md bg-melis-cyan px-6 py-3.5 text-base font-semibold text-melis-navy transition-colors duration-300 hover:bg-white active:scale-[0.98] sm:mt-10 sm:w-auto sm:px-8"
-          >
-            {heroContent.cta}
-          </Link>
+          <div className="hero-animate-cta mt-8 flex flex-col items-center justify-center gap-3 sm:mt-10 sm:flex-row sm:gap-4">
+            <Link
+              href="#projekti"
+              className="inline-block w-full max-w-xs rounded-md bg-melis-cyan px-6 py-3.5 text-base font-semibold text-melis-navy transition-colors duration-300 hover:bg-white active:scale-[0.98] sm:w-auto sm:px-8"
+            >
+              {heroContent.ctaSecondary}
+            </Link>
+            <Link
+              href="#kontakt"
+              className="inline-block w-full max-w-xs rounded-md bg-melis-cyan px-6 py-3.5 text-base font-semibold text-melis-navy transition-colors duration-300 hover:bg-white active:scale-[0.98] sm:w-auto sm:px-8"
+            >
+              {heroContent.cta}
+            </Link>
+          </div>
         </div>
       </div>
     </section>

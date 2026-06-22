@@ -266,11 +266,29 @@ body {
   width: 100%;
 }
 
+.nav-cta {
+  animation: cta-glow 3s ease-in-out 1.5s infinite;
+  transition:
+    transform 0.25s ease,
+    background-color 0.25s ease,
+    color 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.nav-cta:hover {
+  transform: translateY(-1px);
+}
+
+.nav-cta:active {
+  transform: scale(0.98);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .hero-ken-burns,
   .hero-animate-title,
   .hero-animate-subtitle,
   .hero-animate-cta,
+  .nav-cta,
   .nav-slide-down,
   .animate-success,
   .mobile-menu,
