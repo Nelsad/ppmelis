@@ -62,7 +62,8 @@ export default function ContactForm() {
       return;
     }
 
-    const formspreeId = process.env.NEXT_PUBLIC_FORMSPREE_ID;
+    const formspreeId =
+      process.env.NEXT_PUBLIC_FORMSPREE_ID ?? "mgojeokb";
     if (!formspreeId) {
       setSubmitError("Forma nije podešena. Kontaktirajte nas direktno putem emaila.");
       return;
