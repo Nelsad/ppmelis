@@ -1,8 +1,13 @@
+"use client";
+
 import Image from "next/image";
 import AnimateOnScroll from "@/components/AnimateOnScroll";
-import { contactInfo, footerContent } from "@/lib/content";
+import { useLocale } from "@/components/LocaleProvider";
 
 export default function Footer() {
+  const { content } = useLocale();
+  const { footer, contact } = content;
+
   return (
     <footer
       className="bg-melis-navy py-10 text-white sm:py-12"
@@ -19,24 +24,24 @@ export default function Footer() {
               className="h-10 w-auto brightness-0 invert sm:h-12"
             />
             <p className="mt-3 text-sm leading-relaxed text-white/80 sm:mt-4">
-              {footerContent.description}
+              {footer.description}
             </p>
           </AnimateOnScroll>
 
           <AnimateOnScroll variant="fade-up" delay={100}>
             <h3 className="text-sm font-semibold uppercase tracking-wide text-melis-cyan">
-              Kontakt
+              {footer.contact}
             </h3>
             <ul className="mt-3 space-y-2 text-sm text-white/80 sm:mt-4">
-              <li className="break-words">{contactInfo.address}</li>
+              <li className="break-words">{contact.address}</li>
               <li>
-                <a href={`tel:${contactInfo.phone.replace(/\s/g, "")}`} className="hover:text-melis-cyan">
-                  {contactInfo.phone}
+                <a href={`tel:${contact.phone.replace(/\s/g, "")}`} className="hover:text-melis-cyan">
+                  {contact.phone}
                 </a>
               </li>
               <li className="break-all">
-                <a href={`mailto:${contactInfo.email}`} className="hover:text-melis-cyan">
-                  {contactInfo.email}
+                <a href={`mailto:${contact.email}`} className="hover:text-melis-cyan">
+                  {contact.email}
                 </a>
               </li>
             </ul>
@@ -44,15 +49,15 @@ export default function Footer() {
 
           <AnimateOnScroll variant="fade-up" delay={200}>
             <h3 className="text-sm font-semibold uppercase tracking-wide text-melis-cyan">
-              Radno vreme
+              {footer.hours}
             </h3>
-            <p className="mt-3 text-sm text-white/80 sm:mt-4">{contactInfo.hours}</p>
+            <p className="mt-3 text-sm text-white/80 sm:mt-4">{contact.hoursValue}</p>
           </AnimateOnScroll>
         </div>
 
         <AnimateOnScroll variant="fade-in" delay={300}>
           <div className="mt-8 border-t border-white/20 pt-5 text-center text-xs text-white/60 sm:mt-10 sm:pt-6 sm:text-sm">
-            {footerContent.copyright}
+            {footer.copyright}
           </div>
         </AnimateOnScroll>
       </div>

@@ -3,7 +3,7 @@
 import { FormEvent, useState } from "react";
 import AnimateOnScroll from "@/components/AnimateOnScroll";
 import SectionHeading from "@/components/SectionHeading";
-import { contactInfo } from "@/lib/content";
+import { useLocale } from "@/components/LocaleProvider";
 
 type FormData = {
   name: string;
@@ -22,7 +22,11 @@ const initialForm: FormData = {
 };
 
 export default function ContactForm() {
-  const [form, setForm] = useState<FormData>(initialForm);
+  const { content } = useLocale();
+  const { contact } = content;
+  const { form } = contact;
+
+  const [formData, setFormData] = useState<FormData>(initialForm);
   const [errors, setErrors] = useState<FormErrors>({});
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -31,22 +35,22 @@ export default function ContactForm() {
   const validate = (): FormErrors => {
     const next: FormErrors = {};
 
-    if (!form.name.trim()) {
-      next.name = "Ime i prezime je obavezno.";
+    if (!formData.name.trim()) {
+      next.name = form.errors.name;
     }
 
-    if (!form.email.trim()) {
-      next.email = "Email je obavezan.";
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
-      next.email = "Unesite ispravnu email adresu.";
+    if (!formData.email.trim()) {
+      next.email = form.errors.email;
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      next.email = form.errors.emailInvalid;
     }
 
-    if (!form.phone.trim()) {
-      next.phone = "Telefon je obavezan.";
+    if (!formData.phone.trim()) {
+      next.phone = form.errors.phone;
     }
 
-    if (!form.message.trim()) {
-      next.message = "Poruka je obavezna.";
+    if (!formData.message.trim()) {
+      next.message = form.errors.message;
     }
 
     return next;
@@ -65,7 +69,7 @@ export default function ContactForm() {
     const formspreeId =
       process.env.NEXT_PUBLIC_FORMSPREE_ID ?? "mgojeokb";
     if (!formspreeId) {
-      setSubmitError("Forma nije podešena. Kontaktirajte nas direktno putem emaila.");
+      setSubmitError(form.notConfigured);
       return;
     }
 
@@ -79,10 +83,10 @@ export default function ContactForm() {
           Accept: "application/json",
         },
         body: JSON.stringify({
-          name: form.name,
-          email: form.email,
-          phone: form.phone,
-          message: form.message,
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          message: formData.message,
         }),
       });
 
@@ -91,16 +95,16 @@ export default function ContactForm() {
       }
 
       setSubmitted(true);
-      setForm(initialForm);
+      setFormData(initialForm);
     } catch {
-      setSubmitError("Greška pri slanju poruke. Pokušajte ponovo ili nas kontaktirajte direktno.");
+      setSubmitError(form.submitError);
     } finally {
       setIsSubmitting(false);
     }
   };
 
   const handleChange = (field: keyof FormData, value: string) => {
-    setForm((prev) => ({ ...prev, [field]: value }));
+    setFormData((prev) => ({ ...prev, [field]: value }));
     if (errors[field]) {
       setErrors((prev) => ({ ...prev, [field]: undefined }));
     }
@@ -121,8 +125,8 @@ export default function ContactForm() {
       <div className="mx-auto max-w-6xl px-4 md:px-6">
         <SectionHeading
           id="contact-title"
-          title="Kontaktirajte nas"
-          subtitle="Pošaljite nam poruku i javićemo vam se u najkraćem roku."
+          title={contact.title}
+          subtitle={contact.subtitle}
           className="mb-8 sm:mb-12"
         />
 
@@ -130,35 +134,35 @@ export default function ContactForm() {
           <AnimateOnScroll variant="fade-up" className="space-y-5 sm:space-y-6">
             <div className="contact-item">
               <h3 className="text-sm font-semibold uppercase tracking-wide text-melis-cyan">
-                Adresa
+                {contact.addressLabel}
               </h3>
-              <p className="mt-1 break-words text-base text-melis-navy">{contactInfo.address}</p>
+              <p className="mt-1 break-words text-base text-melis-navy">{contact.address}</p>
             </div>
             <div className="contact-item">
               <h3 className="text-sm font-semibold uppercase tracking-wide text-melis-cyan">
-                Telefon
+                {contact.phoneLabel}
               </h3>
               <p className="mt-1 text-base text-melis-navy">
-                <a href={`tel:${contactInfo.phone.replace(/\s/g, "")}`} className="hover:text-melis-cyan">
-                  {contactInfo.phone}
+                <a href={`tel:${contact.phone.replace(/\s/g, "")}`} className="hover:text-melis-cyan">
+                  {contact.phone}
                 </a>
               </p>
             </div>
             <div className="contact-item">
               <h3 className="text-sm font-semibold uppercase tracking-wide text-melis-cyan">
-                Email
+                {contact.emailLabel}
               </h3>
               <p className="mt-1 break-all text-base text-melis-navy">
-                <a href={`mailto:${contactInfo.email}`} className="hover:text-melis-cyan">
-                  {contactInfo.email}
+                <a href={`mailto:${contact.email}`} className="hover:text-melis-cyan">
+                  {contact.email}
                 </a>
               </p>
             </div>
             <div className="contact-item">
               <h3 className="text-sm font-semibold uppercase tracking-wide text-melis-cyan">
-                Radno vreme
+                {contact.hours}
               </h3>
-              <p className="mt-1 text-base text-melis-navy">{contactInfo.hours}</p>
+              <p className="mt-1 text-base text-melis-navy">{contact.hoursValue}</p>
             </div>
           </AnimateOnScroll>
 
@@ -166,12 +170,12 @@ export default function ContactForm() {
           <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5" noValidate>
             <div>
               <label htmlFor="name" className="mb-1 block text-sm font-medium text-melis-navy">
-                Ime i prezime
+                {form.name}
               </label>
               <input
                 id="name"
                 type="text"
-                value={form.name}
+                value={formData.name}
                 onChange={(e) => handleChange("name", e.target.value)}
                 className="input-field w-full rounded-md border border-gray-200 px-4 py-3 text-base text-melis-dark outline-none focus:border-melis-cyan focus:ring-2 focus:ring-melis-cyan/20"
               />
@@ -182,12 +186,12 @@ export default function ContactForm() {
 
             <div>
               <label htmlFor="email" className="mb-1 block text-sm font-medium text-melis-navy">
-                Email
+                {form.email}
               </label>
               <input
                 id="email"
                 type="email"
-                value={form.email}
+                value={formData.email}
                 onChange={(e) => handleChange("email", e.target.value)}
                 className="input-field w-full rounded-md border border-gray-200 px-4 py-3 text-base text-melis-dark outline-none focus:border-melis-cyan focus:ring-2 focus:ring-melis-cyan/20"
               />
@@ -198,12 +202,12 @@ export default function ContactForm() {
 
             <div>
               <label htmlFor="phone" className="mb-1 block text-sm font-medium text-melis-navy">
-                Telefon
+                {form.phone}
               </label>
               <input
                 id="phone"
                 type="tel"
-                value={form.phone}
+                value={formData.phone}
                 onChange={(e) => handleChange("phone", e.target.value)}
                 className="input-field w-full rounded-md border border-gray-200 px-4 py-3 text-base text-melis-dark outline-none focus:border-melis-cyan focus:ring-2 focus:ring-melis-cyan/20"
               />
@@ -214,12 +218,12 @@ export default function ContactForm() {
 
             <div>
               <label htmlFor="message" className="mb-1 block text-sm font-medium text-melis-navy">
-                Poruka
+                {form.message}
               </label>
               <textarea
                 id="message"
                 rows={5}
-                value={form.message}
+                value={formData.message}
                 onChange={(e) => handleChange("message", e.target.value)}
                 className="input-field w-full resize-none rounded-md border border-gray-200 px-4 py-3 text-base text-melis-dark outline-none focus:border-melis-cyan focus:ring-2 focus:ring-melis-cyan/20"
               />
@@ -236,7 +240,7 @@ export default function ContactForm() {
 
             {submitted && (
               <p className="animate-success rounded-md bg-green-50 px-4 py-3 text-sm text-green-800">
-                Hvala! Vaša poruka je primljena. Kontaktiraćemo vas uskoro.
+                {form.success}
               </p>
             )}
 
@@ -245,7 +249,7 @@ export default function ContactForm() {
               disabled={isSubmitting}
               className="w-full rounded-md bg-melis-navy px-6 py-3.5 text-base font-semibold text-white transition-all duration-300 hover:bg-melis-cyan hover:text-melis-navy hover:shadow-md active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
             >
-              {isSubmitting ? "Slanje..." : "Pošalji poruku"}
+              {isSubmitting ? form.submitting : form.submit}
             </button>
           </form>
           </AnimateOnScroll>

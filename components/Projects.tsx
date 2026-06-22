@@ -1,7 +1,7 @@
 import AnimateOnScroll from "@/components/AnimateOnScroll";
 import ProjectCard from "@/components/ProjectCard";
 import SectionHeading from "@/components/SectionHeading";
-import type { Project } from "@/lib/content";
+import type { Project } from "@/lib/i18n";
 
 type ProjectsProps = {
   id: string;

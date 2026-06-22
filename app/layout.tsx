@@ -14,9 +14,9 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: 'P.P. "Melis" | Građevinska firma',
+  title: 'P.P. "Melis" | Construction Company',
   description:
-    "P.P. Melis — građevinska firma specijalizovana za projektovanje i izvođenje stambenih i poslovnih objekata.",
+    "P.P. Melis — construction company specialized in designing and building residential and commercial projects.",
 };
 
 export const viewport: Viewport = {
@@ -32,7 +32,7 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="sr"
+      lang="en"
       className={`${geistSans.variable} ${playfair.variable} h-full antialiased`}
       suppressHydrationWarning
     >

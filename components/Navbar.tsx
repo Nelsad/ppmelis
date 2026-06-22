@@ -3,7 +3,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { navLinks } from "@/lib/content";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
+import { useLocale } from "@/components/LocaleProvider";
+import { getNavLinks } from "@/lib/i18n";
 
 function contactClasses(onHero: boolean) {
   return `nav-cta inline-flex items-center justify-center rounded-md px-3 py-1.5 text-sm font-semibold transition-colors md:px-4 md:py-2 ${
@@ -22,6 +24,8 @@ function linkClasses(onHero: boolean) {
 }
 
 export default function Navbar() {
+  const { content } = useLocale();
+  const navLinks = getNavLinks(content);
   const [overHero, setOverHero] = useState(true);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -55,7 +59,7 @@ export default function Navbar() {
 
   return (
     <header
-      className={`nav-slide-down fixed top-0 z-50 w-full overflow-hidden transition-all duration-300 ${
+      className={`nav-slide-down fixed top-0 z-50 w-full overflow-visible transition-all duration-300 ${
         onHero
           ? "bg-transparent"
           : "bg-white/95 shadow-md backdrop-blur-sm"
@@ -76,46 +80,50 @@ export default function Navbar() {
           />
         </Link>
 
-        <ul className="hidden items-center gap-4 md:flex md:gap-5 lg:gap-6 xl:gap-8">
-          {navLinks.map((link) => (
-            <li key={link.href}>
-              <Link
-                href={link.href}
-                className={
-                  link.href === "#kontakt"
-                    ? contactClasses(onHero)
-                    : linkClasses(onHero)
-                }
-              >
-                {link.label}
-              </Link>
-            </li>
-          ))}
-        </ul>
+        <div className="flex items-center gap-2 sm:gap-3">
+          <ul className="hidden items-center gap-4 md:flex md:gap-5 lg:gap-6 xl:gap-8">
+            {navLinks.map((link) => (
+              <li key={link.href}>
+                <Link
+                  href={link.href}
+                  className={
+                    link.href === "#kontakt"
+                      ? contactClasses(onHero)
+                      : linkClasses(onHero)
+                  }
+                >
+                  {link.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
 
-        <button
-          type="button"
-          className="flex shrink-0 flex-col gap-1.5 p-2 md:hidden"
-          aria-label={isOpen ? "Zatvori meni" : "Otvori meni"}
-          aria-expanded={isOpen}
-          onClick={() => setIsOpen(!isOpen)}
-        >
-          <span
-            className={`block h-0.5 w-6 transition-transform ${
-              onHero ? "bg-white" : "bg-melis-navy"
-            } ${isOpen ? "translate-y-2 rotate-45" : ""}`}
-          />
-          <span
-            className={`block h-0.5 w-6 transition-opacity ${
-              onHero ? "bg-white" : "bg-melis-navy"
-            } ${isOpen ? "opacity-0" : ""}`}
-          />
-          <span
-            className={`block h-0.5 w-6 transition-transform ${
-              onHero ? "bg-white" : "bg-melis-navy"
-            } ${isOpen ? "-translate-y-2 -rotate-45" : ""}`}
-          />
-        </button>
+          <LanguageSwitcher onHero={onHero} />
+
+          <button
+            type="button"
+            className="flex shrink-0 flex-col gap-1.5 p-2 md:hidden"
+            aria-label={isOpen ? content.nav.closeMenu : content.nav.openMenu}
+            aria-expanded={isOpen}
+            onClick={() => setIsOpen(!isOpen)}
+          >
+            <span
+              className={`block h-0.5 w-6 transition-transform ${
+                onHero ? "bg-white" : "bg-melis-navy"
+              } ${isOpen ? "translate-y-2 rotate-45" : ""}`}
+            />
+            <span
+              className={`block h-0.5 w-6 transition-opacity ${
+                onHero ? "bg-white" : "bg-melis-navy"
+              } ${isOpen ? "opacity-0" : ""}`}
+            />
+            <span
+              className={`block h-0.5 w-6 transition-transform ${
+                onHero ? "bg-white" : "bg-melis-navy"
+              } ${isOpen ? "-translate-y-2 -rotate-45" : ""}`}
+            />
+          </button>
+        </div>
       </nav>
 
       {isOpen && (

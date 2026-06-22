@@ -1,6 +1,9 @@
+"use client";
+
 import AnimateOnScroll from "@/components/AnimateOnScroll";
 import SectionHeading from "@/components/SectionHeading";
-import { servicesContent, type Service } from "@/lib/content";
+import { useLocale } from "@/components/LocaleProvider";
+import type { Service } from "@/lib/i18n";
 import type { ReactNode } from "react";
 
 const icons: Record<Service["id"], ReactNode> = {
@@ -43,6 +46,9 @@ const icons: Record<Service["id"], ReactNode> = {
 };
 
 export default function Services() {
+  const { content } = useLocale();
+  const services = content.services;
+
   return (
     <section
       id="usluge"
@@ -52,12 +58,12 @@ export default function Services() {
       <div className="mx-auto max-w-6xl px-4 md:px-6">
         <SectionHeading
           id="services-title"
-          title={servicesContent.title}
-          subtitle={servicesContent.subtitle}
+          title={services.title}
+          subtitle={services.subtitle}
         />
 
         <div className="mt-10 grid gap-4 sm:mt-14 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
-          {servicesContent.services.map((service, index) => (
+          {services.items.map((service, index) => (
             <AnimateOnScroll
               key={service.id}
               variant="fade-up"

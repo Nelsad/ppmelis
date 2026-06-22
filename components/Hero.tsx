@@ -1,8 +1,13 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
-import { heroContent } from "@/lib/content";
+import { useLocale } from "@/components/LocaleProvider";
 
 export default function Hero() {
+  const { content } = useLocale();
+  const { hero } = content;
+
   return (
     <section
       id="pocetna"
@@ -12,8 +17,8 @@ export default function Hero() {
       <div className="absolute inset-0 overflow-hidden">
         <div className="hero-ken-burns absolute inset-0">
           <Image
-            src={heroContent.image}
-            alt="Gradilište"
+            src={hero.image}
+            alt={hero.imageAlt}
             fill
             priority
             className="object-cover"
@@ -30,23 +35,23 @@ export default function Hero() {
             id="hero-title"
             className="hero-animate-title text-balance font-serif text-3xl font-bold leading-tight text-white sm:text-4xl md:text-6xl"
           >
-            {heroContent.title}
+            {hero.title}
           </h1>
           <p className="hero-animate-subtitle mx-auto mt-4 max-w-2xl text-pretty text-sm leading-relaxed text-white/90 sm:mt-6 sm:text-lg md:text-xl">
-            {heroContent.subtitle}
+            {hero.subtitle}
           </p>
           <div className="hero-animate-cta mt-8 flex flex-col items-center justify-center gap-3 sm:mt-10 sm:flex-row sm:gap-4">
             <Link
               href="#projekti"
               className="inline-block w-full max-w-xs rounded-md bg-melis-cyan px-6 py-3.5 text-base font-semibold text-melis-navy transition-colors duration-300 hover:bg-white active:scale-[0.98] sm:w-auto sm:px-8"
             >
-              {heroContent.ctaSecondary}
+              {hero.ctaSecondary}
             </Link>
             <Link
               href="#kontakt"
               className="inline-block w-full max-w-xs rounded-md bg-melis-cyan px-6 py-3.5 text-base font-semibold text-melis-navy transition-colors duration-300 hover:bg-white active:scale-[0.98] sm:w-auto sm:px-8"
             >
-              {heroContent.cta}
+              {hero.cta}
             </Link>
           </div>
         </div>
